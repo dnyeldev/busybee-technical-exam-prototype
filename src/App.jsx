@@ -1,5 +1,12 @@
 import React, { useMemo, useState } from "react";
 
+const userProfile = {
+  name: "Daniel Mabalot",
+  firstName: "Daniel",
+  initials: "DM",
+  email: "daniel.mabalot@busybee.app"
+};
+
 const initialTasks = [
   {
     id: "weekly-report",
@@ -21,7 +28,7 @@ const initialTasks = [
     ],
     status: "In Progress",
     estimate: "2h 30m",
-    assignee: "Alex Chen"
+    assignee: userProfile.name
   },
   {
     id: "invoice-notes",
@@ -40,7 +47,7 @@ const initialTasks = [
     ],
     status: "Not Started",
     estimate: "35m",
-    assignee: "Alex Chen"
+    assignee: userProfile.name
   },
   {
     id: "team-sync",
@@ -56,7 +63,7 @@ const initialTasks = [
     subtasks: [{ label: "Check manager availability", done: false }],
     status: "Not Started",
     estimate: "10m",
-    assignee: "Alex Chen"
+    assignee: userProfile.name
   },
   {
     id: "project-recap",
@@ -72,7 +79,7 @@ const initialTasks = [
     subtasks: [{ label: "Draft recap", done: false }],
     status: "Queued",
     estimate: "25m",
-    assignee: "Alex Chen"
+    assignee: userProfile.name
   },
   {
     id: "moodboard",
@@ -91,7 +98,7 @@ const initialTasks = [
     ],
     status: "Queued",
     estimate: "45m",
-    assignee: "Alex Chen"
+    assignee: userProfile.name
   },
   {
     id: "website-hero",
@@ -107,7 +114,7 @@ const initialTasks = [
     subtasks: [{ label: "Publish final copy", done: true }],
     status: "Done",
     estimate: "1h",
-    assignee: "Alex Chen"
+    assignee: userProfile.name
   },
   {
     id: "client-feedback",
@@ -123,7 +130,7 @@ const initialTasks = [
     subtasks: [{ label: "Send response", done: true }],
     status: "Done",
     estimate: "15m",
-    assignee: "Alex Chen"
+    assignee: userProfile.name
   },
   {
     id: "organize-files",
@@ -139,7 +146,7 @@ const initialTasks = [
     subtasks: [{ label: "Rename layers", done: true }],
     status: "Done",
     estimate: "20m",
-    assignee: "Alex Chen"
+    assignee: userProfile.name
   }
 ];
 
@@ -295,6 +302,16 @@ function Dot({ tone = "blue" }) {
   return <span className={`dot dot-${tone}`} aria-hidden="true" />;
 }
 
+function BrandWordmark() {
+  return (
+    <div className="type-logo" aria-label="BusyBee">
+      <span>Busy</span>
+      <span>Bee</span>
+      <i aria-hidden="true" />
+    </div>
+  );
+}
+
 function Chip({ icon, tone = "neutral", children }) {
   return (
     <span className={`chip chip-${tone}`}>
@@ -435,7 +452,7 @@ function DesktopScreen({ tasks, selectedId, setSelectedId, toggleTask, createTas
       />
       <div className="desktop-frame" data-testid="desktop-frame">
         <aside className="sidebar">
-          <div className="type-logo">BusyBee</div>
+          <BrandWordmark />
           <button className="new-task-button" type="button">
             <Icon name="plus" />
             New Task
@@ -473,10 +490,10 @@ function DesktopScreen({ tasks, selectedId, setSelectedId, toggleTask, createTas
             </button>
           </div>
           <div className="profile-card">
-            <span>AC</span>
+            <span>{userProfile.initials}</span>
             <div>
-              <strong>Alex Chen</strong>
-              <small>alex.chen@busybee.app</small>
+              <strong>{userProfile.name}</strong>
+              <small>{userProfile.email}</small>
             </div>
           </div>
         </aside>
@@ -645,15 +662,22 @@ function TaskDetail({ task, toggleTask }) {
       <div className="activity-list">
         <h3>Activity</h3>
         <p>
-          <span>AC</span> You created this task <small>May 7, 9:15 AM</small>
+          <span>{userProfile.initials}</span>
+          <span className="activity-copy">
+            You created this task
+            <small>May 7, 9:15 AM</small>
+          </span>
         </p>
         <p>
-          <span>AC</span> You set priority to <strong>{task.priority}</strong>
-          <small>May 7, 9:16 AM</small>
+          <span>{userProfile.initials}</span>
+          <span className="activity-copy">
+            You set priority to <strong>{task.priority}</strong>
+            <small>May 7, 9:16 AM</small>
+          </span>
         </p>
       </div>
       <label className="comment-box">
-        <span>AC</span>
+        <span>{userProfile.initials}</span>
         <input placeholder="Add a comment..." />
         <Icon name="send" />
       </label>
@@ -705,7 +729,7 @@ function PhoneFrame({ tasks, toggleTask, createTask }) {
             <span>|||</span>
           </div>
           <header className="mobile-header">
-            <div className="type-logo">BusyBee</div>
+            <BrandWordmark />
             <div>
               <button type="button" aria-label="Search">
                 <Icon name="search" />
@@ -715,7 +739,7 @@ function PhoneFrame({ tasks, toggleTask, createTask }) {
               </button>
             </div>
           </header>
-          <p className="mobile-greeting">Good morning, Alex</p>
+          <p className="mobile-greeting">Good morning, {userProfile.firstName}</p>
           <div className="mobile-title-row">
             <h2>Today</h2>
             <span>
@@ -820,8 +844,8 @@ function PhoneFrame({ tasks, toggleTask, createTask }) {
             <span>|||</span>
           </div>
           <div className="dimmed-mobile-bg">
-            <div className="type-logo">BusyBee</div>
-            <p>Good morning, Alex</p>
+            <BrandWordmark />
+            <p>Good morning, {userProfile.firstName}</p>
             <h2>Today</h2>
           </div>
           <MobileSheet
@@ -1089,7 +1113,7 @@ function App() {
       subtasks: [{ label: "Add details", done: false }],
       status: "Not Started",
       estimate: "30m",
-      assignee: "Alex Chen"
+      assignee: userProfile.name
     };
     setTasks((current) => [nextTask, ...current]);
     return id;
@@ -1099,7 +1123,7 @@ function App() {
     <div className="app-shell">
       <header className="submission-header">
         <div>
-          <div className="type-logo">BusyBee</div>
+          <BrandWordmark />
           <p>UI Designer Technical Exam Prototype</p>
         </div>
         <nav aria-label="Prototype sections">
