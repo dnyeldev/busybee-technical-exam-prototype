@@ -1,0 +1,41 @@
+# Copy to config.toml (setup.sh does this) and change whatever you like.
+# Anything you leave out uses the default.
+
+output_dir = "clips"
+
+[sources]
+# Creators you have permission to clip: name, @handle, channel id, or channel URL.
+# Videos from anyone else need --permission "<note>" (the note is saved with the clips).
+allowed_channels = [
+  # "@YourOwnChannel",
+  # "https://www.youtube.com/@CreatorWhoSaidYes",
+]
+max_height = 1080
+cookies_from_browser = ""   # "safari" or "chrome" if YouTube says "sign in to confirm"
+
+[shorts]
+count = 8
+target_seconds = 30
+layout = "blur"              # "blur" or "crop"
+title_banner = true
+
+[longform]
+enabled = true
+count = 10
+clip_seconds = 40
+captions = false
+
+[captions]
+enabled = true
+model = "small"              # "large-v3-turbo" = more accurate, slower
+language = "en"
+font = "Arial Black"
+font_size = 88
+
+[detect]
+deep = false                 # true = transcribe everything, also rank by hype words (slower)
+min_gap_seconds = 45
+
+[metadata]
+title_prefix = "GTA 6"
+hashtags = ["#GTA6", "#GTAVI", "#GTA", "#ViceCity", "#Gaming"]
